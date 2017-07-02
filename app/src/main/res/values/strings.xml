@@ -1,0 +1,8 @@
+<resources>
+  <string name="app_name">IsbnLookup</string>
+  <string name="button_send">Button</string>
+  <string name="edit_text_hint">Name</string>
+
+  <!-- TODO: Remove or change this placeholder text -->
+  <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
