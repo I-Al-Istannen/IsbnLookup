@@ -1,41 +1,40 @@
 package me.ialistannen.isbnlookup;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.TextView;
-import java.util.ArrayList;
-import java.util.List;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-
-  static final String MESSAGE_EXTRA_KEY = "me.ialistannen.isbnlookup.Sent_message";
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
-    if (savedInstanceState == null) {
-      List<String> list = new ArrayList<>();
-      for (int i = 0; i < 10; i++) {
-        list.add("Item " + i);
-      }
-      BlankFragment fragment = BlankFragment.createNew(list);
-      getSupportFragmentManager().beginTransaction()
-          .add(R.id.fragment_container, fragment)
-          .commit();
+    Toolbar toolbar = (Toolbar) findViewById(R.id.activity_main_action_bar);
+    setSupportActionBar(toolbar);
+
+    if (getSupportActionBar() != null) {
+      getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
   }
 
-  public void onSendMessage(View view) {
-    Intent intent = new Intent(this, DisplayTextActivity.class);
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu) {
+    getMenuInflater().inflate(R.menu.main_action_bar, menu);
+    return true;
+  }
 
-    TextView messageView = (TextView) findViewById(R.id.edit_text);
-
-    intent.putExtra(MESSAGE_EXTRA_KEY, messageView.getText().toString());
-
-    startActivity(intent);
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    switch (item.getItemId()) {
+      case R.id.action_bar_settings:
+        Toast.makeText(this, "Clicked me!", Toast.LENGTH_SHORT).show();
+        return true;
+    }
+    return false;
   }
 }

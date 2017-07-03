@@ -8,40 +8,16 @@
   android:layout_height="match_parent"
   tools:context="me.ialistannen.isbnlookup.MainActivity">
 
-  <EditText
-    android:layout_width="0dp"
+  <android.support.v7.widget.Toolbar
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:inputType="textPersonName"
-    android:hint="@string/edit_text_hint"
-    android:ems="10"
-    android:id="@+id/edit_text"
-    android:layout_marginStart="16dp"
+    android:background="?attr/colorPrimary"
+    android:theme="?attr/actionBarTheme"
+    android:minHeight="?attr/actionBarSize"
+    tools:layout_editor_absoluteY="0dp"
+    android:id="@+id/activity_main_action_bar"
     app:layout_constraintLeft_toLeftOf="parent"
-    app:layout_constraintRight_toLeftOf="@+id/button_send"
-    android:layout_marginTop="16dp"
+    app:layout_constraintRight_toRightOf="parent"
     app:layout_constraintTop_toTopOf="parent"
-    android:layout_marginEnd="16dp"
-    />
-  <Button
-    android:text="@string/button_send"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:id="@+id/button_send"
-    android:layout_marginEnd="16dp"
-    app:layout_constraintRight_toRightOf="parent"
-    app:layout_constraintBaseline_toBaselineOf="@+id/edit_text"
-    app:layout_constraintLeft_toRightOf="@+id/edit_text"
-    android:onClick="onSendMessage"/>
-  <FrameLayout
-    android:layout_height="100dp"
-    app:layout_constraintRight_toRightOf="parent"
-    app:layout_constraintLeft_toLeftOf="parent"
-    android:id="@+id/fragment_container"
-    android:layout_marginStart="16dp"
-    android:layout_marginEnd="16dp"
-    android:layout_width="100dp"
-    app:layout_constraintBottom_toBottomOf="parent"
-    android:layout_marginBottom="16dp">
-
-  </FrameLayout>
+    android:elevation="4dp"/>
 </android.support.constraint.ConstraintLayout>
