@@ -8,4 +8,9 @@
     <item name="colorAccent">@color/colorAccent</item>
   </style>
 
+  <style name="InputTextLayout" parent="Widget.Design.TextInputLayout">
+    <item name="android:textColor">@color/colorPrimary</item>
+    <item name="colorControlNormal">@color/colorPrimary</item>
+  </style>
+
 </resources>

@@ -3,4 +3,6 @@
   <string name="button_send">Button</string>
   <string name="edit_text_hint">Name</string>
   <string name="actionbar_settings_name">Settings</string>
+  <string name="activity_main_isbn_input_hint">ISBN...</string>
+  <string name="activity_main_isbn_submit_button">Lookup!</string>
 </resources>
