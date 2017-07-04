@@ -1,16 +1,21 @@
 package me.ialistannen.isbnlookup;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.Toast;
+import me.ialistannen.isbnlookup.util.ParcelableIsbn;
+import me.ialistannen.isbnlookup.view.isbninputlayout.IsbnInputTextLayout;
+import me.ialistannen.isbnlookuplib.isbn.Isbn;
+import me.ialistannen.isbnlookuplib.util.Optional;
 
 public class MainActivity extends AppCompatActivity {
+
+  static final String ISBN_KEY = "me.ialistannen.isbnlookup.MainActivity.ISBN";
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -31,29 +36,22 @@ public class MainActivity extends AppCompatActivity {
    * @param view The button
    */
   public void onLookupClicked(View view) {
-    EditText editText = getIsbnEditText();
-    if (editText == null) {
+    IsbnInputTextLayout isbnInputTextLayout = (IsbnInputTextLayout) findViewById(
+        R.id.activity_main_isbn_input_field);
+
+    Optional<Isbn> isbnOptional = isbnInputTextLayout.getIsbn();
+    if (!isbnOptional.isPresent()) {
       return;
     }
+    Isbn isbn = isbnOptional.get();
 
-    String isbn = editText.getText().toString();
     Toast.makeText(this, "Got ISBN " + isbn, Toast.LENGTH_SHORT).show();
+
+    Intent showInformation = new Intent(this, DisplayBookInformation.class);
+    showInformation.putExtra(ISBN_KEY, ParcelableIsbn.of(isbn));
+    startActivity(showInformation);
   }
 
-  /**
-   * @return The {@link EditText} for inputting the ISBN.
-   */
-  private EditText getIsbnEditText() {
-    TextInputLayout textInputLayout = (TextInputLayout) findViewById(
-        R.id.activity_main_isbn_input_field
-    );
-    EditText editText = textInputLayout.getEditText();
-
-    if (editText == null) {
-      return null;
-    }
-    return editText;
-  }
 
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
