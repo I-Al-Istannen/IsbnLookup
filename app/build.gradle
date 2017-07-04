@@ -38,7 +38,6 @@ dependencies {
     compile 'com.android.support:support-v4:26.0.0-alpha1'
     compile 'com.android.support:design:26.0.0-alpha1'
     compile 'com.android.support:support-vector-drawable:26.0.0-alpha1'
-//    Hello Java 8
-//    compile 'com.github.I-Al-Istannen:IsbnLookupLib:9916d41edc'
+    compile 'com.github.I-Al-Istannen:IsbnLookupLib:10a10a75a9'
     testCompile 'junit:junit:4.12'
 }

@@ -39,7 +39,7 @@
     android:layout_marginBottom="16dp"
     android:id="@+id/activity_main_isbn_input_field"
     android:layout_marginEnd="16dp"
-    android:theme="@style/InputTextLayout">
+    app:theme="@style/InputTextLayout">
 
     <EditText
       android:layout_width="match_parent"

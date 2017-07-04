@@ -12,10 +12,6 @@ public class IsbnInputTextLayout extends TextInputLayout {
 
   public IsbnInputTextLayout(Context context) {
     super(context);
-    if (getEditText() != null) {
-      getEditText().setFilters(new InputFilter[]{new IsbnInputFilter()});
-      getEditText().addTextChangedListener(new IsbnLayoutValidationWatcher(this));
-    }
   }
 
   public IsbnInputTextLayout(Context context, AttributeSet attrs) {
@@ -24,6 +20,15 @@ public class IsbnInputTextLayout extends TextInputLayout {
 
   public IsbnInputTextLayout(Context context, AttributeSet attrs, int defStyleAttr) {
     super(context, attrs, defStyleAttr);
+  }
+
+  @Override
+  protected void onFinishInflate() {
+    if (getEditText() != null) {
+      getEditText().setFilters(new InputFilter[]{new IsbnInputFilter()});
+      getEditText().addTextChangedListener(new IsbnLayoutValidationWatcher(this, getContext()));
+    }
+
   }
 
   @Override

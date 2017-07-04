@@ -20,7 +20,6 @@ public class IsbnInputFilter implements InputFilter {
       int dstart, int dend) {
 
     for (char c : source.toString().toCharArray()) {
-      System.out.println("Checking: " + c + " " + ALLOWED_CHARACTERS);
       if (!ALLOWED_CHARACTERS.contains(c)
           && !ALLOWED_CHARACTERS.contains(Character.toUpperCase(c))) {
         return "";
