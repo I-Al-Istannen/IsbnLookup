@@ -14,8 +14,12 @@ import me.ialistannen.isbnlookuplib.book.BookDataKey;
 public class BookInformationListEntryContainer {
 
   private View view;
+  private BookFormatter formatter;
 
-  public BookInformationListEntryContainer(Context context, ViewGroup parent) {
+  BookInformationListEntryContainer(Context context, ViewGroup parent,
+      BookFormatter formatter) {
+    this.formatter = formatter;
+
     LayoutInflater layoutInflater = LayoutInflater.from(context);
 
     this.view = layoutInflater
@@ -26,37 +30,16 @@ public class BookInformationListEntryContainer {
    * @param key The {@link BookDataKey} to use
    * @param value The value
    */
-  public void setData(BookDataKey key, Object value) {
+  void setData(BookDataKey key, Object value) {
     TextView title = view.findViewById(R.id.book_information_list_view_holder_title);
     if (title != null) {
-      title.setText(capitalize(key.name()));
+      title.setText(formatter.formatKey(key));
     }
 
     TextView description = view.findViewById(R.id.book_information_list_view_holder_description);
     if (description != null) {
-      description.setText(value.toString());
+      description.setText(formatter.formatValue(key, value));
     }
-
-    System.out.println("Set the data to : " + key + " " + value);
-  }
-
-  private String capitalize(String string) {
-    StringBuilder stringBuilder = new StringBuilder();
-
-    boolean upperCase = true;
-    for (char c : string.toCharArray()) {
-      if (upperCase) {
-        stringBuilder.append(Character.toUpperCase(c));
-        upperCase = false;
-      } else {
-        stringBuilder.append(Character.toLowerCase(c));
-      }
-      if (c == '_' || c == ' ') {
-        upperCase = true;
-      }
-    }
-
-    return stringBuilder.toString();
   }
 
   public View getView() {

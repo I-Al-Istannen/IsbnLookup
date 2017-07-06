@@ -8,4 +8,9 @@
   <string name="invalid_isbn">Invalid ISBN</string>
   <string name="activity_display_book_information_title">Book Information</string>
   <string name="book_information_no_data">No data.</string>
+  <string name="book_formatter_authors_format">%1$s  (%2$s)</string>
+  <string name="book_information_fetching">Fetching ISBN \'%1$s\'</string>
+  <string name="preferences_group_misc">Misc</string>
+  <string name="preferences_group_misc_locale_title">Locale</string>
+  <string name="preferences_group_misc_locale_summary">The current locale is \'%1$s\'.</string>
 </resources>

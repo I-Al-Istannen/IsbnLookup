@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map.Entry;
 import me.ialistannen.isbnlookup.R;
 import me.ialistannen.isbnlookuplib.book.Book;
@@ -24,7 +25,7 @@ import me.ialistannen.isbnlookuplib.book.BookDataKey;
  */
 public class BookInformationList extends RecyclerView {
 
-  private Book book;
+  private BookFormatter bookFormatter;
 
   public BookInformationList(Context context) {
     super(context);
@@ -39,20 +40,18 @@ public class BookInformationList extends RecyclerView {
   }
 
   public void setBook(Book book) {
-    this.book = book;
-    setAdapter(new IsbnViewAdapter(book, getContext()));
+    setAdapter(new IsbnViewAdapter(book, getContext(), bookFormatter));
   }
 
   @Override
   protected void onFinishInflate() {
     super.onFinishInflate();
 
-    book = new Book();
-    book.setData(new NoDataBookKey(getContext()), new NoDataBookKey(getContext()).name());
-    book.setData(new DummyBookKey("Hey"), "Hey");
-    book.setData(new DummyBookKey("Hey 2"), "Hey 2");
+    bookFormatter = new BookFormatter(getContext());
 
     setLayoutManager(new LinearLayoutManager(getContext()));
+
+    addItemDecoration(new PaddingItemDecoration(10));
 
     DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
         getContext(),
@@ -61,9 +60,6 @@ public class BookInformationList extends RecyclerView {
     dividerItemDecoration
         .setDrawable(ContextCompat.getDrawable(getContext(), R.drawable.list_divider));
     addItemDecoration(dividerItemDecoration);
-
-    addItemDecoration(new PaddingItemDecoration(10));
-    setAdapter(new IsbnViewAdapter(book, getContext()));
   }
 
   private static class PaddingItemDecoration extends ItemDecoration {
@@ -89,28 +85,40 @@ public class BookInformationList extends RecyclerView {
 
     private List<Entry<BookDataKey, Object>> values;
     private final Context context;
+    private final BookFormatter formatter;
 
-    private IsbnViewAdapter(Book book, Context context) {
+    private IsbnViewAdapter(Book book, Context context, BookFormatter formatter) {
+      this.formatter = formatter;
+      this.context = context;
       values = new ArrayList<>(book.getAllData().entrySet());
 
+      removeBlacklistedKeys();
       sortEntries();
-
-      this.context = context;
-      System.out.println("Created adapter with " + book.getAllData() + " keys!");
     }
 
     private void sortEntries() {
       Collections.sort(values, new Comparator<Entry<BookDataKey, Object>>() {
         @Override
         public int compare(Entry<BookDataKey, Object> o1, Entry<BookDataKey, Object> o2) {
-          return o1.getKey().name().compareTo(o2.getKey().name());
+          return Integer.compare(o1.getKey().displayPriority(), o2.getKey().displayPriority());
         }
       });
     }
 
+    private void removeBlacklistedKeys() {
+      ListIterator<Entry<BookDataKey, Object>> iterator = values.listIterator();
+      while (iterator.hasNext()) {
+        Entry<BookDataKey, Object> entry = iterator.next();
+
+        if (!formatter.shouldDisplayKey(entry.getKey())) {
+          iterator.remove();
+        }
+      }
+    }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-      return new ListViewHolder(new BookInformationListEntryContainer(context, parent));
+      return new ListViewHolder(new BookInformationListEntryContainer(context, parent, formatter));
     }
 
     @Override
@@ -138,34 +146,6 @@ public class BookInformationList extends RecyclerView {
       BookInformationListEntryContainer getContainer() {
         return container;
       }
-    }
-  }
-
-  private static class NoDataBookKey implements BookDataKey {
-
-    private Context context;
-
-    private NoDataBookKey(Context context) {
-      this.context = context;
-    }
-
-    @Override
-    public String name() {
-      return context.getString(R.string.book_information_no_data);
-    }
-  }
-
-  private static class DummyBookKey implements BookDataKey {
-
-    private final String name;
-
-    private DummyBookKey(String name) {
-      this.name = name;
-    }
-
-    @Override
-    public String name() {
-      return name;
     }
   }
 }

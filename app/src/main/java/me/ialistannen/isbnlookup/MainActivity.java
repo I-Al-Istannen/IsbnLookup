@@ -2,12 +2,12 @@ package me.ialistannen.isbnlookup;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 import me.ialistannen.isbnlookup.util.ParcelableIsbn;
 import me.ialistannen.isbnlookup.view.isbninputlayout.IsbnInputTextLayout;
 import me.ialistannen.isbnlookuplib.isbn.Isbn;
@@ -22,11 +22,16 @@ public class MainActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
-    Toolbar toolbar = (Toolbar) findViewById(R.id.activity_main_action_bar);
-    setSupportActionBar(toolbar);
+    // ensure all values are set and the default value specified by getXX is never returned
+    PreferenceManager.setDefaultValues(this, R.xml.preferences, true);
 
-    if (getSupportActionBar() != null) {
-      getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    if (savedInstanceState == null) {
+      Toolbar toolbar = (Toolbar) findViewById(R.id.activity_main_action_bar);
+      setSupportActionBar(toolbar);
+
+      if (getSupportActionBar() != null) {
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+      }
     }
   }
 
@@ -45,8 +50,6 @@ public class MainActivity extends AppCompatActivity {
     }
     Isbn isbn = isbnOptional.get();
 
-    Toast.makeText(this, "Got ISBN " + isbn, Toast.LENGTH_SHORT).show();
-
     Intent showInformation = new Intent(this, DisplayBookInformation.class);
     showInformation.putExtra(ISBN_KEY, ParcelableIsbn.of(isbn));
     startActivity(showInformation);
@@ -63,7 +66,8 @@ public class MainActivity extends AppCompatActivity {
   public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
       case R.id.action_bar_settings:
-        Toast.makeText(this, "Clicked me!", Toast.LENGTH_SHORT).show();
+        Intent showSettings = new Intent(this, SettingsActivity.class);
+        startActivity(showSettings);
         return true;
     }
     return false;
