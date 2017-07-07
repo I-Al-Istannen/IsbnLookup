@@ -1,6 +1,7 @@
 package me.ialistannen.isbnlookup.view.bookinformationlist;
 
 import android.content.Context;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -14,6 +15,7 @@ import me.ialistannen.isbnlookuplib.book.BookDataKey;
 import me.ialistannen.isbnlookuplib.book.StandardBookDataKeys;
 import me.ialistannen.isbnlookuplib.isbn.Isbn;
 import me.ialistannen.isbnlookuplib.util.Pair;
+import me.ialistannen.isbnlookuplib.util.Price;
 
 /**
  * Formats the values of {@link BookDataKey}s.
@@ -52,6 +54,15 @@ class BookFormatter {
       @Override
       public String convert(Isbn isbn) {
         return isbn.getDigitsAsString();
+      }
+    });
+
+    addConverter(new TypeConverter<Price>(Price.class) {
+      private NumberFormat numberFormat = NumberFormat.getNumberInstance();
+
+      @Override
+      public String convert(Price price) {
+        return numberFormat.format(price.getPrice()) + " " + price.getCurrencyIdentifier();
       }
     });
   }
