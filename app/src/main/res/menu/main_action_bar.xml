@@ -6,4 +6,12 @@
     android:title="@string/actionbar_settings_name"
     app:showAsAction="never"
     android:id="@+id/action_bar_settings"/>
+
+  <item
+    android:title="@string/actionbar_scan_name"
+    app:showAsAction="ifRoom"
+    android:id="@+id/action_bar_scan"
+    android:icon="@mipmap/barcode"
+    android:onClick="onInitiateScan"
+    />
 </menu>

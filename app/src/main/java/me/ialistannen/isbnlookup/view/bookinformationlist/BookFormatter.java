@@ -65,6 +65,15 @@ class BookFormatter {
         return numberFormat.format(price.getPrice()) + " " + price.getCurrencyIdentifier();
       }
     });
+
+    addConverter(new KeyConverter<Double>(StandardBookDataKeys.RATING) {
+      private NumberFormat formatInstance = NumberFormat.getPercentInstance();
+
+      @Override
+      public String convert(Double ratingPercentage) {
+        return formatInstance.format(ratingPercentage);
+      }
+    });
   }
 
   /**

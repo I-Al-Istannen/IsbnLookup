@@ -22,6 +22,7 @@ android {
 
 allprojects {
     repositories {
+        mavenCentral()
         maven { url 'https://jitpack.io' }
         mavenLocal()
     }
@@ -40,6 +41,8 @@ dependencies {
     compile 'com.android.support:design:26.0.0-alpha1'
     compile 'com.android.support:support-vector-drawable:26.0.0-alpha1'
     compile 'com.github.I-Al-Istannen:IsbnLookupLib:ab24d44953'
+    compile 'com.google.zxing:android-core:3.3.0'
+    compile 'com.google.zxing:android-integration:3.3.0'
 //    compile 'me.ialistannen:IsbnLookupLib:1.0-SNAPSHOT'
     testCompile 'junit:junit:4.12'
 }
