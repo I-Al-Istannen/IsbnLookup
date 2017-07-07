@@ -29,13 +29,33 @@ public class IsbnRetriever extends AsyncTask<Isbn, Void, Optional<Book>> {
     this.callback = callback;
 
     String localeTag = PreferenceManager.getDefaultSharedPreferences(context)
-        .getString("preferences_group_misc_locale", "de");
+        .getString("preferences_group_fetcher_locale", "de");
     Locale locale = new Locale(localeTag);
 
-    IsbnConverter isbnConverter = new IsbnConverter();
-    isbnLookupProvider = new AmazonIsbnLookupProvider(locale, isbnConverter);
+    isbnLookupProvider = getIsbnLookupProvider(context, locale, new IsbnConverter());
+
+    Toast.makeText(
+        context,
+        "Using lookup provider " + isbnLookupProvider.getClass().getSimpleName(),
+        Toast.LENGTH_SHORT
+    ).show();
 
     Toast.makeText(context, "Using locale " + localeTag, Toast.LENGTH_SHORT).show();
+  }
+
+  private IsbnLookupProvider getIsbnLookupProvider(Context context, Locale locale,
+      IsbnConverter converter) {
+    String fetcherName = PreferenceManager.getDefaultSharedPreferences(context)
+        .getString("preferences_group_fetcher_chosen", null);
+
+    Toast.makeText(context, "Fetcher name '" + fetcherName + "'", Toast.LENGTH_SHORT).show();
+
+    switch (fetcherName) {
+      case "amazon":
+        return new AmazonIsbnLookupProvider(locale, converter);
+      default:
+        return new AmazonIsbnLookupProvider(locale, converter);
+    }
   }
 
   @Override

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="app_name">IsbnLookup</string>
+  <string name="actionbar_settings_name">Einstellungen</string>
+  <string name="activity_display_book_information_title">Buchinformationen</string>
+  <string name="activity_main_isbn_input_hint">ISBN…</string>
+  <string name="activity_main_isbn_submit_button">Nachschlagen!</string>
+  <string name="book_information_fetching">Schlage ISBN \'%1$s\' nach</string>
+  <string name="book_information_no_data">Keine Daten.</string>
+  <string name="invalid_isbn">Ungültige ISBN</string>
+  <string name="preferences_group_fetcher_chosen_summary">Benutze \'%s\' als Nachschlagewerk</string>
+  <string name="preferences_group_fetcher_chosen_title">Ausgewähltes Nachschlagewerk</string>
+  <string name="preferences_group_fetcher_title">Einstellungen des Fetchers</string>
+  <string name="preferences_group_fetcher_locale_summary">Die momentane Sprache ist \'%s\'.</string>
+  <string name="preferences_group_fetcher_locale_title">Sprache</string>
+</resources>

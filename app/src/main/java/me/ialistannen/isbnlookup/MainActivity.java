@@ -19,11 +19,11 @@ public class MainActivity extends AppCompatActivity {
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_main);
-
     // ensure all values are set and the default value specified by getXX is never returned
     PreferenceManager.setDefaultValues(this, R.xml.preferences, true);
+
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main);
 
     if (savedInstanceState == null) {
       Toolbar toolbar = (Toolbar) findViewById(R.id.activity_main_action_bar);

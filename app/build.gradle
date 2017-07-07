@@ -39,7 +39,7 @@ dependencies {
     compile 'com.android.support:support-v4:26.0.0-alpha1'
     compile 'com.android.support:design:26.0.0-alpha1'
     compile 'com.android.support:support-vector-drawable:26.0.0-alpha1'
-//    compile 'com.github.I-Al-Istannen:IsbnLookupLib:c5419a01f1'
-    compile 'me.ialistannen:IsbnLookupLib:1.0-SNAPSHOT'
+    compile 'com.github.I-Al-Istannen:IsbnLookupLib:c5419a01f1'
+//    compile 'me.ialistannen:IsbnLookupLib:1.0-SNAPSHOT'
     testCompile 'junit:junit:4.12'
 }
