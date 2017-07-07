@@ -14,4 +14,15 @@
   <string name="preferences_group_fetcher_chosen_summary">Using fetcher \'%s\'</string>
   <string name="preferences_group_fetcher_chosen_title">Selected Fetcher</string>
   <string name="actionbar_scan_name">Scan</string>
+  <string name="TITLE">Title</string>
+  <string name="AUTHORS">Authors</string>
+  <string name="PUBLISHER">Publisher</string>
+  <string name="COVER_TYPE">Cover type</string>
+  <string name="DESCRIPTION">Description</string>
+  <string name="PAGE_COUNT">Page count</string>
+  <string name="LANGUAGE">Language</string>
+  <string name="ISBN_STRING">ISBN</string>
+  <string name="PRICE">Price</string>
+  <string name="RATING">Rating</string>
+  <string name="URL" translatable="false">Url</string>
 </resources>

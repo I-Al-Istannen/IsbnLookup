@@ -4,8 +4,8 @@
   <string name="actionbar_settings_name">Einstellungen</string>
   <string name="activity_display_book_information_title">Buchinformationen</string>
   <string name="activity_main_isbn_input_hint">ISBN…</string>
-  <string name="activity_main_isbn_submit_button">Nachschlagen!</string>
-  <string name="book_information_fetching">Schlage ISBN \'%1$s\' nach</string>
+  <string name="activity_main_isbn_submit_button">Suchen!</string>
+  <string name="book_information_fetching">Suche ISBN \'%1$s\'</string>
   <string name="book_information_no_data">Keine Daten.</string>
   <string name="invalid_isbn">Ungültige ISBN</string>
   <string name="preferences_group_fetcher_chosen_summary">Benutze \'%s\' als Nachschlagewerk</string>
@@ -13,4 +13,15 @@
   <string name="preferences_group_fetcher_title">Einstellungen des Fetchers</string>
   <string name="preferences_group_fetcher_locale_summary">Die momentane Sprache ist \'%s\'.</string>
   <string name="preferences_group_fetcher_locale_title">Sprache</string>
+  <string name="actionbar_scan_name">Scannen</string>
+  <string name="AUTHORS">Autor</string>
+  <string name="DESCRIPTION">Beschreibung</string>
+  <string name="COVER_TYPE">Umschlagtyp</string>
+  <string name="ISBN_STRING">ISBN</string>
+  <string name="LANGUAGE">Sprache</string>
+  <string name="PAGE_COUNT">Seitenzahl</string>
+  <string name="PRICE">Preis</string>
+  <string name="PUBLISHER">Verleger</string>
+  <string name="RATING">Bewertung</string>
+  <string name="TITLE">Titel</string>
 </resources>

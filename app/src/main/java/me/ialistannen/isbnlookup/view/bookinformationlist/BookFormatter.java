@@ -22,14 +22,15 @@ import me.ialistannen.isbnlookuplib.util.Price;
  */
 class BookFormatter {
 
+  private final Context context;
   private List<ValueToStringConverter<?>> converters;
-
 
   private Set<BookDataKey> blacklistedKeys = new HashSet<>(
       Collections.<BookDataKey>singletonList(StandardBookDataKeys.ISBN)
   );
 
   BookFormatter(final Context context) {
+    this.context = context;
     converters = new ArrayList<>();
 
     addConverter(new KeyConverter<List<Pair<String, String>>>(StandardBookDataKeys.AUTHORS) {
@@ -96,7 +97,22 @@ class BookFormatter {
    * @return The formatted name
    */
   String formatKey(BookDataKey key) {
+    String localizedName = getStringByName(key.name());
+    if (localizedName != null) {
+      return localizedName;
+    }
     return capitalize(key.name());
+  }
+
+  private String getStringByName(String key) {
+    int resourceId = context.getResources()
+        .getIdentifier(key, "string", context.getPackageName());
+
+    if (resourceId == 0) {
+      return null;
+    }
+
+    return context.getString(resourceId);
   }
 
   /**
