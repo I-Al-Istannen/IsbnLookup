@@ -11,7 +11,7 @@
     android:title="@string/actionbar_scan_name"
     app:showAsAction="ifRoom"
     android:id="@+id/action_bar_scan"
-    android:icon="@mipmap/barcode"
+    android:icon="@drawable/ic_barcode_scan"
     android:onClick="onInitiateScan"
     />
 </menu>
