@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-  <string-array name="preferences_group_fetcher_languages_labels">
+  <string-array translatable="false" name="preferences_group_fetcher_languages_labels">
     <item>Deutsch</item>
     <item>English</item>
   </string-array>
-  <string-array name="preferences_group_fetcher_languages">
+  <string-array translatable="false" name="preferences_group_fetcher_languages">
     <item>de</item>
     <item>en</item>
   </string-array>
 
 
-  <string-array name="preferences_group_fetcher_fetchers_labels">
+  <string-array translatable="false" name="preferences_group_fetcher_fetchers_labels">
     <item>Amazon</item>
   </string-array>
-  <string-array name="preferences_group_fetcher_fetchers_values">
+  <string-array translatable="false" name="preferences_group_fetcher_fetchers_values">
     <item>amazon</item>
   </string-array>
 

@@ -45,6 +45,14 @@ public class MainActivity extends AppCompatActivity {
    * @param view The button
    */
   public void onLookupClicked(View view) {
+
+    // FIXME: 09.07.17 Continue here
+//    startActivity(new Intent(this, HistoryActivity.class));
+//
+//    if("".isEmpty()) {
+//      return;
+//    }
+
     IsbnInputTextLayout isbnInputTextLayout = (IsbnInputTextLayout) findViewById(
         R.id.activity_main_isbn_input_field);
 

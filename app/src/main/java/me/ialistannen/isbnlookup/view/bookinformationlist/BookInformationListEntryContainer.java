@@ -16,8 +16,7 @@ public class BookInformationListEntryContainer {
   private View view;
   private BookFormatter formatter;
 
-  BookInformationListEntryContainer(Context context, ViewGroup parent,
-      BookFormatter formatter) {
+  BookInformationListEntryContainer(Context context, ViewGroup parent, BookFormatter formatter) {
     this.formatter = formatter;
 
     LayoutInflater layoutInflater = LayoutInflater.from(context);

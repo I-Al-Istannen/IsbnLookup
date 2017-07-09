@@ -10,24 +10,27 @@
     android:label="@string/app_name"
     android:supportsRtl="true"
     android:theme="@style/AppTheme">
-
     <activity
-      android:name=".MainActivity"
-      android:launchMode="singleTop">
+      android:launchMode="singleTop"
+      android:name=".MainActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
 
         <category android:name="android.intent.category.LAUNCHER"/>
       </intent-filter>
     </activity>
-
     <activity
+      android:launchMode="singleTop"
       android:name=".DisplayBookInformation"
-      android:parentActivityName=".MainActivity"
-      android:launchMode="singleTop">
+      android:parentActivityName=".MainActivity">
     </activity>
-
-    <activity android:name=".SettingsActivity"/>
+    <activity
+      android:name=".SettingsActivity"
+      android:parentActivityName=".MainActivity"/>
+    <activity
+      android:name=".HistoryActivity"
+      android:parentActivityName=".MainActivity">
+    </activity>
   </application>
 
 </manifest>
