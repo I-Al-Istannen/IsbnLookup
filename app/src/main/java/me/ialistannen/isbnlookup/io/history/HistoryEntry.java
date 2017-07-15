@@ -32,4 +32,13 @@ public class HistoryEntry {
   public int getUniqueId() {
     return uniqueId;
   }
+
+  @Override
+  public String toString() {
+    return "HistoryEntry{"
+        + "isbn=" + isbn
+        + ", date=" + date
+        + ", uniqueId=" + uniqueId
+        + '}';
+  }
 }

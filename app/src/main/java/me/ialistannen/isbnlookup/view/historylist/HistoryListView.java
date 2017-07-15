@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewParent;
 import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -42,26 +41,47 @@ public class HistoryListView extends RecyclerView {
   protected void onAttachedToWindow() {
     super.onAttachedToWindow();
 
-    setAdapter(new Adapter(Collections.<HistoryEntry>emptyList(), this.getParent()));
+    setAdapter(new Adapter(Collections.<HistoryEntry>emptyList()));
   }
 
   /**
    * @param data The data to display in the list
    */
   public void setData(List<HistoryEntry> data) {
-    System.out.println("Data: " + data);
-    setAdapter(new Adapter(data, this.getParent()));
+    Adapter adapter = (Adapter) getAdapter();
+    adapter.setSearchTimes(data);
+
+    getAdapter().notifyDataSetChanged();
+
+    handlePlaceholderVisibility();
+  }
+
+  private void handlePlaceholderVisibility() {
+    if (!(getParent() instanceof View)) {
+      return;
+    }
+    View parent = (View) getParent();
+    TextView emptyView = parent.findViewById(R.id.activity_history_empty_view);
+
+    if (getAdapter().getItemCount() == 0) {
+      setVisibility(GONE);
+      emptyView.setVisibility(VISIBLE);
+    } else {
+      setVisibility(VISIBLE);
+      emptyView.setVisibility(GONE);
+    }
   }
 
   private static class Adapter extends RecyclerView.Adapter {
 
     private List<HistoryEntry> searchTimes;
-    private ViewParent parent;
-    private RecyclerView recyclerView;
 
-    Adapter(List<HistoryEntry> searchTimes, ViewParent parent) {
+    Adapter(List<HistoryEntry> searchTimes) {
       this.searchTimes = new ArrayList<>(searchTimes);
-      this.parent = parent;
+    }
+
+    void setSearchTimes(List<HistoryEntry> searchTimes) {
+      this.searchTimes = new ArrayList<>(searchTimes);
     }
 
     @Override
@@ -78,26 +98,7 @@ public class HistoryListView extends RecyclerView {
     }
 
     @Override
-    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
-      super.onAttachedToRecyclerView(recyclerView);
-      this.recyclerView = recyclerView;
-    }
-
-    @Override
     public int getItemCount() {
-      if (parent instanceof View) {
-        View rootView = (View) parent;
-        TextView emptyView = rootView.findViewById(R.id.activity_history_empty_view);
-
-        if (searchTimes.isEmpty()) {
-          emptyView.setVisibility(VISIBLE);
-          recyclerView.setVisibility(GONE);
-        } else {
-          emptyView.setVisibility(GONE);
-          recyclerView.setVisibility(VISIBLE);
-        }
-      }
-
       return searchTimes.size();
     }
   }

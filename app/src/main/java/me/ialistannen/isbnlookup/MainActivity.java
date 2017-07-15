@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.Toast;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import java.util.Date;
+import me.ialistannen.isbnlookup.io.history.LookupHistory;
 import me.ialistannen.isbnlookup.util.ParcelableIsbn;
 import me.ialistannen.isbnlookup.view.isbninputlayout.IsbnInputTextLayout;
 import me.ialistannen.isbnlookuplib.isbn.Isbn;
@@ -45,14 +47,6 @@ public class MainActivity extends AppCompatActivity {
    * @param view The button
    */
   public void onLookupClicked(View view) {
-
-    // FIXME: 09.07.17 Continue here
-//    startActivity(new Intent(this, HistoryActivity.class));
-//
-//    if("".isEmpty()) {
-//      return;
-//    }
-
     IsbnInputTextLayout isbnInputTextLayout = (IsbnInputTextLayout) findViewById(
         R.id.activity_main_isbn_input_field);
 
@@ -69,6 +63,8 @@ public class MainActivity extends AppCompatActivity {
     Intent showInformation = new Intent(this, DisplayBookInformation.class);
     showInformation.putExtra(ISBN_KEY, ParcelableIsbn.of(isbn));
     startActivity(showInformation);
+
+    LookupHistory.getInstance(this).addToHistory(isbn, new Date());
   }
 
 
@@ -87,6 +83,10 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
     return false;
+  }
+
+  public void onShowHistory(MenuItem item) {
+    startActivity(new Intent(this, HistoryActivity.class));
   }
 
   public void onInitiateScan(MenuItem item) {

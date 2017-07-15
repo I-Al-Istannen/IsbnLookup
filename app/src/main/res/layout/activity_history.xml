@@ -12,14 +12,16 @@
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:background="?attr/colorPrimary"
-    android:theme="?attr/actionBarTheme"
     android:minHeight="?attr/actionBarSize"
     android:id="@+id/activity_history_action_bar"
     app:layout_constraintRight_toRightOf="parent"
     app:layout_constraintLeft_toLeftOf="parent"
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintBottom_toTopOf="@+id/activity_history_list_view"
-    />
+    app:title="History"
+    android:theme="@style/ThemeOverlay.MyApp.ActionBar"
+    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+    style="@style/Widget.MyApp.Toolbar.Solid"/>
   <TextView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"

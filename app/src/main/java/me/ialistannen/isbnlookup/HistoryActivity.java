@@ -3,7 +3,7 @@ package me.ialistannen.isbnlookup;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Toast;
+import android.support.v7.widget.Toolbar;
 import java.util.List;
 import me.ialistannen.isbnlookup.io.history.HistoryEntry;
 import me.ialistannen.isbnlookup.io.history.LookupHistory;
@@ -15,6 +15,14 @@ public class HistoryActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_history);
+
+    setSupportActionBar((Toolbar) findViewById(R.id.activity_history_action_bar));
+
+    if (getSupportActionBar() != null) {
+      getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+      getSupportActionBar().setDisplayShowHomeEnabled(true);
+      getSupportActionBar().setDisplayShowTitleEnabled(true);
+    }
 
     HistoryListView historyList = (HistoryListView) findViewById(R.id.activity_history_list_view);
 
@@ -38,7 +46,6 @@ public class HistoryActivity extends AppCompatActivity {
 
       @Override
       protected void onPostExecute(List<HistoryEntry> historyEntries) {
-        Toast.makeText(HistoryActivity.this, "Got " + historyEntries, Toast.LENGTH_SHORT).show();
         if (historyEntries == null || historyEntries.isEmpty()) {
           return;
         }
