@@ -64,11 +64,11 @@ public class HistoryListView extends RecyclerView {
     TextView emptyView = parent.findViewById(R.id.activity_history_empty_view);
 
     if (getAdapter().getItemCount() == 0) {
-      setVisibility(GONE);
+      setVisibility(INVISIBLE);
       emptyView.setVisibility(VISIBLE);
     } else {
       setVisibility(VISIBLE);
-      emptyView.setVisibility(GONE);
+      emptyView.setVisibility(INVISIBLE);
     }
   }
 

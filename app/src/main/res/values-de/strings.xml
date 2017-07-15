@@ -25,4 +25,6 @@
   <string name="RATING">Bewertung</string>
   <string name="TITLE">Titel</string>
   <string name="history_list_no_history">Noch kein Verlauf</string>
+  <string name="actionbar_history_name">Verlauf</string>
+  <string name="activity_history_clear_all_button_name">Alles löschen</string>
 </resources>

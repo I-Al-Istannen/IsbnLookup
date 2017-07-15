@@ -4,6 +4,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import java.util.Collections;
 import java.util.List;
 import me.ialistannen.isbnlookup.io.history.HistoryEntry;
 import me.ialistannen.isbnlookup.io.history.LookupHistory;
@@ -53,5 +55,16 @@ public class HistoryActivity extends AppCompatActivity {
         historyListView.setData(historyEntries);
       }
     };
+  }
+
+  /**
+   * Called when the user presses "Clear All" in the GUI.
+   *
+   * @param view The button that was clicked
+   */
+  public void onClearAll(View view) {
+    LookupHistory.getInstance(this).clear();
+    HistoryListView listView = (HistoryListView) findViewById(R.id.activity_history_list_view);
+    listView.setData(Collections.<HistoryEntry>emptyList());
   }
 }
