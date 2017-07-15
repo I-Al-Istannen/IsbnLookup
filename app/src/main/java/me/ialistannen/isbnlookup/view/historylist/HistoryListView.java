@@ -72,21 +72,51 @@ public class HistoryListView extends RecyclerView {
     }
   }
 
-  private static class Adapter extends RecyclerView.Adapter {
+  static class Adapter extends RecyclerView.Adapter {
 
     private List<HistoryEntry> searchTimes;
+    private HistoryListView historyListView;
 
     Adapter(List<HistoryEntry> searchTimes) {
       this.searchTimes = new ArrayList<>(searchTimes);
     }
 
+    /**
+     * Sets the data to display.
+     *
+     * @param searchTimes The {@link HistoryEntry}s to display
+     */
     void setSearchTimes(List<HistoryEntry> searchTimes) {
       this.searchTimes = new ArrayList<>(searchTimes);
     }
 
+    /**
+     * Removes the element at the given index.
+     *
+     * @param index The index of the element
+     */
+    void remove(int index) {
+      searchTimes.remove(index);
+      notifyDataSetChanged();
+
+      historyListView.handlePlaceholderVisibility();
+    }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-      return new HistoryListEntry(parent.getContext(), parent);
+      return new HistoryListEntry(parent.getContext(), parent, historyListView);
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+      super.onAttachedToRecyclerView(recyclerView);
+      this.historyListView = (HistoryListView) recyclerView;
+    }
+
+    @Override
+    public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
+      super.onDetachedFromRecyclerView(recyclerView);
+      this.historyListView = null;
     }
 
     @Override
@@ -94,7 +124,7 @@ public class HistoryListView extends RecyclerView {
       HistoryListEntry listEntry = (HistoryListEntry) holder;
 
       HistoryEntry data = searchTimes.get(position);
-      listEntry.setData(data.getIsbn(), data.getDate());
+      listEntry.setData(data.getIsbn(), data.getDate(), data.getUniqueId());
     }
 
     @Override

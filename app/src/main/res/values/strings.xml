@@ -28,4 +28,6 @@
   <string name="history_list_no_history">Nothing yet</string>
   <string name="actionbar_history_name">History</string>
   <string name="activity_history_clear_all_button_name">Clear all</string>
+  <string name="history_list_element_popup_title">Options</string>
+  <string name="history_list_element_popup_delete">Delete</string>
 </resources>

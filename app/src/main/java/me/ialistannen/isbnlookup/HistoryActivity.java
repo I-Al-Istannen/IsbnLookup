@@ -28,6 +28,7 @@ public class HistoryActivity extends AppCompatActivity {
 
     HistoryListView historyList = (HistoryListView) findViewById(R.id.activity_history_list_view);
 
+    registerForContextMenu(historyList);
     getFetchingTask().execute(historyList);
   }
 
