@@ -2,6 +2,8 @@ package me.ialistannen.isbnlookup.view.historylist;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
@@ -13,6 +15,7 @@ import java.util.Collections;
 import java.util.List;
 import me.ialistannen.isbnlookup.R;
 import me.ialistannen.isbnlookup.io.history.HistoryEntry;
+import me.ialistannen.isbnlookup.view.util.PaddingItemDecoration;
 
 /**
  * A List recylcer view showing your search history
@@ -35,6 +38,15 @@ public class HistoryListView extends RecyclerView {
   protected void onFinishInflate() {
     super.onFinishInflate();
     setLayoutManager(new LinearLayoutManager(getContext()));
+
+    DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
+        getContext(), DividerItemDecoration.VERTICAL
+    );
+    dividerItemDecoration.setDrawable(
+        ContextCompat.getDrawable(getContext(), R.drawable.list_divider)
+    );
+    addItemDecoration(dividerItemDecoration);
+    addItemDecoration(new PaddingItemDecoration(20));
     setAdapter(new Adapter(Collections.<HistoryEntry>emptyList()));
   }
 
