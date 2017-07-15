@@ -4,10 +4,13 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import java.util.Date;
+import me.ialistannen.isbnlookup.io.history.LookupHistory;
 import me.ialistannen.isbnlookup.logic.isbn.IsbnRetriever;
 import me.ialistannen.isbnlookup.view.bookinformationlist.BookInformationList;
 import me.ialistannen.isbnlookuplib.book.AbstractBookDataKey;
 import me.ialistannen.isbnlookuplib.book.Book;
+import me.ialistannen.isbnlookuplib.book.StandardBookDataKeys;
 import me.ialistannen.isbnlookuplib.isbn.Isbn;
 import me.ialistannen.isbnlookuplib.util.Consumer;
 import me.ialistannen.isbnlookuplib.util.Optional;
@@ -26,7 +29,7 @@ public class DisplayBookInformation extends AppCompatActivity {
       getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    Isbn isbn = getIntent().getExtras().getParcelable(MainActivity.ISBN_KEY);
+    final Isbn isbn = getIntent().getExtras().getParcelable(MainActivity.ISBN_KEY);
 
     //0-306-40615-2
 
@@ -40,11 +43,23 @@ public class DisplayBookInformation extends AppCompatActivity {
       public void accept(Optional<Book> bookOptional) {
         if (bookOptional.isPresent()) {
           bookInformationList.setBook(bookOptional.get());
+
+          addToHistory(bookOptional.get(), isbn);
         } else {
           bookInformationList.setBook(getNoDataBook());
         }
       }
     }, this).execute(isbn);
+  }
+
+  private void addToHistory(Book book, Isbn isbn) {
+    String title = book.getData(StandardBookDataKeys.TITLE);
+
+    if (title == null) {
+      title = getString(R.string.history_unknown_book_title);
+    }
+
+    LookupHistory.getInstance(this).addToHistory(isbn, title, new Date());
   }
 
   private Book getPlaceholderBook(Isbn isbn) {

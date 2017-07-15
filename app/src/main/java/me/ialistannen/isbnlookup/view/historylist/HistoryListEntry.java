@@ -12,12 +12,10 @@ import android.view.View.OnCreateContextMenuListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import java.text.DateFormat;
-import java.util.Date;
 import me.ialistannen.isbnlookup.R;
 import me.ialistannen.isbnlookup.io.history.HistoryEntry;
 import me.ialistannen.isbnlookup.io.history.LookupHistory;
 import me.ialistannen.isbnlookup.view.historylist.HistoryListView.Adapter;
-import me.ialistannen.isbnlookuplib.isbn.Isbn;
 
 /**
  * An entry in a HistoryList.
@@ -67,17 +65,18 @@ class HistoryListEntry extends ViewHolder {
   /**
    * Sets the data displayed in this entry.
    *
-   * @param isbn The {@link Isbn} to use
-   * @param date The date it was searched
-   * @param uniqueId The {@link HistoryEntry#getUniqueId()}
+   * @param historyEntry The {@link HistoryEntry}
    */
-  void setData(Isbn isbn, Date date, int uniqueId) {
-    this.uniqueId = uniqueId;
+  void setData(HistoryEntry historyEntry) {
+    this.uniqueId = historyEntry.getUniqueId();
+
+    TextView titleTextView = itemView.findViewById(R.id.history_list_view_holder_title);
+    titleTextView.setText(historyEntry.getTitle());
 
     TextView isbnTextView = itemView.findViewById(R.id.history_list_view_holder_isbn);
-    isbnTextView.setText(isbn.getDigitsAsString());
+    isbnTextView.setText(historyEntry.getIsbn().getDigitsAsString());
 
     TextView dateTextView = itemView.findViewById(R.id.history_list_view_holder_date);
-    dateTextView.setText(dateFormat.format(date));
+    dateTextView.setText(dateFormat.format(historyEntry.getDate()));
   }
 }

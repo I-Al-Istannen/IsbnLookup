@@ -9,11 +9,13 @@ import me.ialistannen.isbnlookuplib.isbn.Isbn;
 public class HistoryEntry {
 
   private Isbn isbn;
+  private String title;
   private Date date;
   private int uniqueId;
 
-  HistoryEntry(Isbn isbn, Date date, int uniqueId) {
+  HistoryEntry(Isbn isbn, String title, Date date, int uniqueId) {
     this.isbn = isbn;
+    this.title = title;
     this.date = date;
     this.uniqueId = uniqueId;
   }
@@ -24,6 +26,10 @@ public class HistoryEntry {
 
   public Date getDate() {
     return date;
+  }
+
+  public String getTitle() {
+    return title;
   }
 
   /**

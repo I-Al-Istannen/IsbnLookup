@@ -22,9 +22,10 @@ class DatabaseCreator {
     try {
       //language=SQLite
       String sql = "CREATE TABLE " + tableName + " (\n"
-          + "  id   INTEGER PRIMARY KEY,\n"
-          + "  isbn TEXT    NOT NULL,\n"
-          + "  date INTEGER NOT NULL\n"
+          + "  id    INTEGER PRIMARY KEY,\n"
+          + "  isbn  TEXT    NOT NULL,\n"
+          + "  title TEXT    NOT NULL,\n"
+          + "  date  INTEGER NOT NULL\n"
           + ") ";
 
       database.execSQL(sql);

@@ -35,12 +35,6 @@ public class HistoryListView extends RecyclerView {
   protected void onFinishInflate() {
     super.onFinishInflate();
     setLayoutManager(new LinearLayoutManager(getContext()));
-  }
-
-  @Override
-  protected void onAttachedToWindow() {
-    super.onAttachedToWindow();
-
     setAdapter(new Adapter(Collections.<HistoryEntry>emptyList()));
   }
 
@@ -124,7 +118,7 @@ public class HistoryListView extends RecyclerView {
       HistoryListEntry listEntry = (HistoryListEntry) holder;
 
       HistoryEntry data = searchTimes.get(position);
-      listEntry.setData(data.getIsbn(), data.getDate(), data.getUniqueId());
+      listEntry.setData(data);
     }
 
     @Override

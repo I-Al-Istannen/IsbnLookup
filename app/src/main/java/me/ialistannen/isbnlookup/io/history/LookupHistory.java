@@ -44,9 +44,10 @@ public class LookupHistory extends SQLiteOpenHelper {
    * Adds an entry to the history.
    *
    * @param isbn The {@link Isbn} that was searched
+   * @param title The Title of the book
    * @param date The {@link Date} it was searched
    */
-  public void addToHistory(Isbn isbn, Date date) {
+  public void addToHistory(Isbn isbn, String title, Date date) {
     SQLiteDatabase database = getWritableDatabase();
 
     database.beginTransaction();
@@ -54,6 +55,7 @@ public class LookupHistory extends SQLiteOpenHelper {
     try {
       ContentValues contentValues = new ContentValues();
       contentValues.put("date", date.getTime());
+      contentValues.put("title", title);
       contentValues.put("isbn", isbn.getDigitsAsString());
 
       database.insert(TABLE_NAME, null, contentValues);
@@ -120,16 +122,18 @@ public class LookupHistory extends SQLiteOpenHelper {
         do {
           int id = cursor.getInt(0);
           String isbnString = cursor.getString(1);
-          Date date = new Date(cursor.getLong(2));
-
           Optional<Isbn> isbnOptional = isbnConverter.fromString(isbnString);
+
+          String title = cursor.getString(2);
+
+          Date date = new Date(cursor.getLong(3));
           if (!isbnOptional.isPresent()) {
             continue;
           }
 
           Isbn isbn = isbnOptional.get();
 
-          data.add(new HistoryEntry(isbn, date, id));
+          data.add(new HistoryEntry(isbn, title, date, id));
 
         }
         while (cursor.moveToNext());
