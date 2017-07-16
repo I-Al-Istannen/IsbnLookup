@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="app_name">IsbnLookup</string>
   <string name="actionbar_settings_name">Einstellungen</string>
   <string name="activity_display_book_information_title">Buchinformationen</string>
   <string name="activity_main_isbn_input_hint">ISBN</string>
