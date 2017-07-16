@@ -1,7 +1,7 @@
 <resources>
   <string name="app_name">IsbnLookup</string>
   <string name="actionbar_settings_name">Settings</string>
-  <string name="activity_main_isbn_input_hint">ISBN…</string>
+  <string name="activity_main_isbn_input_hint">ISBN</string>
   <string name="activity_main_isbn_submit_button">Lookup!</string>
   <string name="invalid_isbn">Invalid ISBN</string>
   <string name="activity_display_book_information_title">Book Information</string>

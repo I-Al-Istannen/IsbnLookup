@@ -3,7 +3,7 @@
   <string name="app_name">IsbnLookup</string>
   <string name="actionbar_settings_name">Einstellungen</string>
   <string name="activity_display_book_information_title">Buchinformationen</string>
-  <string name="activity_main_isbn_input_hint">ISBN…</string>
+  <string name="activity_main_isbn_input_hint">ISBN</string>
   <string name="activity_main_isbn_submit_button">Suchen!</string>
   <string name="book_information_fetching">Suche ISBN \'%1$s\'</string>
   <string name="book_information_no_data">Keine Daten.</string>
