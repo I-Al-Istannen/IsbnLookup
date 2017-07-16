@@ -32,7 +32,6 @@
     app:layout_constraintRight_toRightOf="parent"
     android:id="@+id/separator"/>
   <TextView
-    android:autoLink="web"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:id="@+id/book_information_list_view_holder.description"

@@ -1,16 +1,22 @@
 package me.ialistannen.isbnlookup.view.bookinformationlist;
 
 import android.content.Context;
+import android.os.Build.VERSION;
+import android.os.Build.VERSION_CODES;
+import android.text.Html;
+import android.text.Spanned;
+import android.text.SpannedString;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 import me.ialistannen.isbnlookup.R;
 import me.ialistannen.isbnlookup.view.bookinformationlist.valueconversion.KeyConverter;
 import me.ialistannen.isbnlookup.view.bookinformationlist.valueconversion.TypeConverter;
-import me.ialistannen.isbnlookup.view.bookinformationlist.valueconversion.ValueToStringConverter;
+import me.ialistannen.isbnlookup.view.bookinformationlist.valueconversion.ValueToSpannedConverter;
 import me.ialistannen.isbnlookuplib.book.BookDataKey;
 import me.ialistannen.isbnlookuplib.book.StandardBookDataKeys;
 import me.ialistannen.isbnlookuplib.isbn.Isbn;
@@ -23,7 +29,7 @@ import me.ialistannen.isbnlookuplib.util.Price;
 class BookFormatter {
 
   private final Context context;
-  private List<ValueToStringConverter<?>> converters;
+  private List<ValueToSpannedConverter<?>> converters;
 
   private Set<BookDataKey> blacklistedKeys = new HashSet<>(
       Collections.<BookDataKey>singletonList(StandardBookDataKeys.ISBN)
@@ -34,8 +40,9 @@ class BookFormatter {
     converters = new ArrayList<>();
 
     addConverter(new KeyConverter<List<Pair<String, String>>>(StandardBookDataKeys.AUTHORS) {
+
       @Override
-      public String convert(List<Pair<String, String>> pairs) {
+      public Spanned convert(List<Pair<String, String>> pairs) {
         StringBuilder stringBuilder = new StringBuilder();
 
         for (Pair<String, String> pair : pairs) {
@@ -43,18 +50,39 @@ class BookFormatter {
               R.string.book_formatter_authors_format, pair.getKey(), pair.getValue()
           );
 
-          stringBuilder.append(formattedValue).append("\n");
+          String linkTarget = context.getString(
+              R.string.book_formatter_wikipedia_search_url, pair.getKey()
+          );
+
+          stringBuilder.append(getMaskedLinkHtml(linkTarget, formattedValue)).append("<br>");
         }
 
         String result = stringBuilder.toString();
-        return result.substring(0, result.length() - 1);
+        result = result.substring(0, result.length() - 1);
+        return getHtmlSpannedFromString(result);
+      }
+
+      private String getMaskedLinkHtml(String target, String text) {
+        String format = "<a href=\"%s\">%s</a>";
+
+        return String.format(Locale.ROOT, format, target, text);
+      }
+
+      private Spanned getHtmlSpannedFromString(String html) {
+        if (VERSION.SDK_INT >= VERSION_CODES.N) {
+          return Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY);
+        }
+
+        @SuppressWarnings("deprecation")
+        Spanned fromHtml = Html.fromHtml(html);
+        return fromHtml;
       }
     });
 
     addConverter(new TypeConverter<Isbn>(Isbn.class) {
       @Override
-      public String convert(Isbn isbn) {
-        return isbn.getDigitsAsString();
+      public Spanned convert(Isbn isbn) {
+        return stringToSpanned(isbn.getDigitsAsString());
       }
     });
 
@@ -62,8 +90,10 @@ class BookFormatter {
       private NumberFormat numberFormat = NumberFormat.getNumberInstance();
 
       @Override
-      public String convert(Price price) {
-        return numberFormat.format(price.getPrice()) + " " + price.getCurrencyIdentifier();
+      public Spanned convert(Price price) {
+        String formatted =
+            numberFormat.format(price.getPrice()) + " " + price.getCurrencyIdentifier();
+        return stringToSpanned(formatted);
       }
     });
 
@@ -71,16 +101,16 @@ class BookFormatter {
       private NumberFormat formatInstance = NumberFormat.getPercentInstance();
 
       @Override
-      public String convert(Double ratingPercentage) {
-        return formatInstance.format(ratingPercentage);
+      public Spanned convert(Double ratingPercentage) {
+        return stringToSpanned(formatInstance.format(ratingPercentage));
       }
     });
   }
 
   /**
-   * @param converter The {@link ValueToStringConverter} to add to this {@link BookFormatter}.
+   * @param converter The {@link ValueToSpannedConverter} to add to this {@link BookFormatter}.
    */
-  private void addConverter(ValueToStringConverter<?> converter) {
+  private void addConverter(ValueToSpannedConverter<?> converter) {
     converters.add(converter);
   }
 
@@ -120,22 +150,22 @@ class BookFormatter {
    * @param value The value to format
    * @return The formatted value, if possible
    */
-  String formatValue(BookDataKey key, Object value) {
-    for (ValueToStringConverter<?> converter : converters) {
+  Spanned formatValue(BookDataKey key, Object value) {
+    for (ValueToSpannedConverter<?> converter : converters) {
       if (converter.canConvert(key)) {
         return converter.convertImpl(value);
       }
     }
 
     // Give keys precedence, so we iter over the values after that
-    for (ValueToStringConverter<?> converter : converters) {
+    for (ValueToSpannedConverter<?> converter : converters) {
       if (converter.canConvert(value)) {
         return converter.convertImpl(value);
       }
     }
 
     // fallback
-    return value.toString();
+    return new SpannedString(value.toString());
   }
 
   private String capitalize(String string) {

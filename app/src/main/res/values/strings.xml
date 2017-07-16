@@ -33,4 +33,5 @@
   <string name="history_unknown_book_title">Unknown title</string>
   <string name="history_list_element_popup_lookup">Lookup</string>
   <string name="activity_main_title" translatable="false">ISBN Lookup</string>
+  <string name="book_formatter_wikipedia_search_url"><![CDATA[https://en.wikipedia.org/w/index.php?search=%s]]></string>
 </resources>

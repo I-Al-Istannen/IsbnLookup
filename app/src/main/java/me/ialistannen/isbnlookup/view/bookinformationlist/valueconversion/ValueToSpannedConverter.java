@@ -1,11 +1,12 @@
 package me.ialistannen.isbnlookup.view.bookinformationlist.valueconversion;
 
+import android.text.Spanned;
 import me.ialistannen.isbnlookuplib.book.Book;
 
 /**
- * Converts a {@link Book} value to a String.
+ * Converts a {@link Book} value to a {@link Spanned}.
  */
-public interface ValueToStringConverter<T> {
+public interface ValueToSpannedConverter<T> {
 
   /**
    * @param object The value to convert
@@ -17,11 +18,11 @@ public interface ValueToStringConverter<T> {
    * @param t The value to convert to a String
    * @return The converted value
    */
-  String convert(T t);
+  Spanned convert(T t);
 
   /**
    * @param object The object to convert
    * @return The converted value
    */
-  String convertImpl(Object object);
+  Spanned convertImpl(Object object);
 }

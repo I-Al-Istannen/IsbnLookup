@@ -1,6 +1,8 @@
 package me.ialistannen.isbnlookup.view.bookinformationlist;
 
 import android.content.Context;
+import android.text.method.LinkMovementMethod;
+import android.text.util.Linkify;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +40,10 @@ public class BookInformationListEntryContainer {
     TextView description = view.findViewById(R.id.book_information_list_view_holder_description);
     if (description != null) {
       description.setText(formatter.formatValue(key, value));
+
+      Linkify.addLinks(description, Linkify.WEB_URLS);
+
+      description.setMovementMethod(LinkMovementMethod.getInstance());
     }
   }
 
