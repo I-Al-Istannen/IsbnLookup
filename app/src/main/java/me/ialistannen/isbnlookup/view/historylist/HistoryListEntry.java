@@ -1,6 +1,7 @@
 package me.ialistannen.isbnlookup.view.historylist;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -12,9 +13,12 @@ import android.view.View.OnCreateContextMenuListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import java.text.DateFormat;
+import me.ialistannen.isbnlookup.DisplayBookInformation;
+import me.ialistannen.isbnlookup.MainActivity;
 import me.ialistannen.isbnlookup.R;
 import me.ialistannen.isbnlookup.io.history.HistoryEntry;
 import me.ialistannen.isbnlookup.io.history.LookupHistory;
+import me.ialistannen.isbnlookup.util.ParcelableIsbn;
 import me.ialistannen.isbnlookup.view.historylist.HistoryListView.Adapter;
 
 /**
@@ -24,7 +28,7 @@ class HistoryListEntry extends ViewHolder {
 
   private final HistoryListView historyListView;
   private DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.FULL);
-  private int uniqueId;
+  private HistoryEntry entry;
 
   HistoryListEntry(Context context, ViewGroup parent, HistoryListView historyListView) {
     super(createView(context, parent));
@@ -54,7 +58,21 @@ class HistoryListEntry extends ViewHolder {
               public boolean onMenuItemClick(MenuItem menuItem) {
                 Adapter adapter = (Adapter) historyListView.getAdapter();
                 adapter.remove(getAdapterPosition());
-                LookupHistory.getInstance(context).deleteFromHistory(uniqueId);
+                LookupHistory.getInstance(context).deleteFromHistory(entry.getUniqueId());
+                return true;
+              }
+            });
+
+        contextMenu.add(context.getString(R.string.history_list_element_popup_lookup))
+            .setOnMenuItemClickListener(new OnMenuItemClickListener() {
+              @Override
+              public boolean onMenuItemClick(MenuItem menuItem) {
+                Intent intent = new Intent(context, DisplayBookInformation.class);
+
+                ParcelableIsbn parcelableIsbn = ParcelableIsbn.of(entry.getIsbn());
+                intent.putExtra(MainActivity.ISBN_KEY, parcelableIsbn);
+
+                context.startActivity(intent);
                 return true;
               }
             });
@@ -68,7 +86,7 @@ class HistoryListEntry extends ViewHolder {
    * @param historyEntry The {@link HistoryEntry}
    */
   void setData(HistoryEntry historyEntry) {
-    this.uniqueId = historyEntry.getUniqueId();
+    this.entry = historyEntry;
 
     TextView titleTextView = itemView.findViewById(R.id.history_list_view_holder_title);
     titleTextView.setText(historyEntry.getTitle());

@@ -26,6 +26,10 @@ public class HistoryActivity extends AppCompatActivity {
       getSupportActionBar().setDisplayShowTitleEnabled(true);
     }
 
+    populateHistoryList();
+  }
+
+  private void populateHistoryList() {
     HistoryListView historyList = (HistoryListView) findViewById(R.id.activity_history_list_view);
 
     registerForContextMenu(historyList);
@@ -56,6 +60,14 @@ public class HistoryActivity extends AppCompatActivity {
         historyListView.setData(historyEntries);
       }
     };
+  }
+
+  @Override
+  protected void onResume() {
+    super.onResume();
+
+    // Keep it up to date
+    populateHistoryList();
   }
 
   /**

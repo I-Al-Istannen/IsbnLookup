@@ -30,4 +30,5 @@
   <string name="history_list_element_popup_delete">Löschen</string>
   <string name="history_list_element_popup_title">Optionen</string>
   <string name="history_unknown_book_title">Unbekannter Titel</string>
+  <string name="history_list_element_popup_lookup">Suchen</string>
 </resources>

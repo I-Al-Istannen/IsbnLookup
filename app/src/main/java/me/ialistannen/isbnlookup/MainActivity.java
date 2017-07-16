@@ -19,7 +19,7 @@ import me.ialistannen.isbnlookuplib.util.Optional;
 
 public class MainActivity extends AppCompatActivity {
 
-  static final String ISBN_KEY = "me.ialistannen.isbnlookup.MainActivity.ISBN";
+  public static final String ISBN_KEY = "me.ialistannen.isbnlookup.MainActivity.ISBN";
 
   private IsbnConverter isbnConverter;
 

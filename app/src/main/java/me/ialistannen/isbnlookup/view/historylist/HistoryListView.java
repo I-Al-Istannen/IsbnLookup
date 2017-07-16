@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import me.ialistannen.isbnlookup.R;
 import me.ialistannen.isbnlookup.io.history.HistoryEntry;
@@ -55,11 +56,26 @@ public class HistoryListView extends RecyclerView {
    */
   public void setData(List<HistoryEntry> data) {
     Adapter adapter = (Adapter) getAdapter();
+
+    sortData(data);
+
     adapter.setSearchTimes(data);
 
     getAdapter().notifyDataSetChanged();
 
     handlePlaceholderVisibility();
+  }
+
+  private void sortData(List<HistoryEntry> data) {
+    Comparator<HistoryEntry> comparator = new Comparator<HistoryEntry>() {
+      @Override
+      public int compare(HistoryEntry o1, HistoryEntry o2) {
+        return o1.getDate().compareTo(o2.getDate());
+      }
+    };
+    comparator = Collections.reverseOrder(comparator);
+
+    Collections.sort(data, comparator);
   }
 
   private void handlePlaceholderVisibility() {
